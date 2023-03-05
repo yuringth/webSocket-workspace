@@ -8,8 +8,13 @@
 </head>
 <body>
 
-	메인화면으로 포워딩
-	<jsp:forward page="WEB-INF/views/main.jsp"/>
 	
+	<jsp:include page="common/header.jsp" />
+	
+	<div style="height:500px;">
+	</div>
+	
+	<jsp:include page="common/footer.jsp" />
+
 </body>
 </html>
