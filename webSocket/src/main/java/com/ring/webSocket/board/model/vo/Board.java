@@ -2,6 +2,9 @@ package com.ring.webSocket.board.model.vo;
 
 import java.sql.Date;
 
+import lombok.Data;
+
+@Data
 public class Board {
 
 	private int boardNo; //BOARD_NO	NUMBER
@@ -13,27 +16,5 @@ public class Board {
 	private int count; //COUNT	NUMBER
 	private Date createDate; //CREATE_DATE	DATE
 	private String status; //STATUS	VARCHAR2(1 BYTE)
-	
-	public Board() {
-		super();
-	}
-
-	public Board(int boardNo, String boardTitle, String boardWriter, String boardContent, String originName,
-			String changeName, int count, Date createDate, String status) {
-		super();
-		this.boardNo = boardNo;
-		this.boardTitle = boardTitle;
-		this.boardWriter = boardWriter;
-		this.boardContent = boardContent;
-		this.originName = originName;
-		this.changeName = changeName;
-		this.count = count;
-		this.createDate = createDate;
-		this.status = status;
-	}
-	
-	
-	
-	
 	
 }

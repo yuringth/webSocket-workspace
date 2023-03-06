@@ -3,7 +3,9 @@ package com.ring.webSocket.member.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -17,6 +19,9 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	@Autowired
+	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	
 	
 	// 로그인
 	@RequestMapping("login.me")
@@ -24,13 +29,13 @@ public class MemberController {
 		
 		Member loginUser = memberService.loginMember(m);
 		
-		if(loginUser == null) {
-			// model.addAttribute("키", "밸류");
-			mv.addObject("errorMsg","로그인에 실패했습니다");
-			mv.setViewName("common/errorPage");
-		} else {
+		// BCryptPasswordEncoder 객체에 match(평문, 암호문) 전달 후, 두 값이 같으면 true 반환
+		if(loginUser != null && bcryptPasswordEncoder.matches(m.getMemPwd(), loginUser.getMemPwd())) {
 			session.setAttribute("loginUser", loginUser);
 			mv.setViewName("redirect:/");
+		} else {
+			mv.addObject("errorMsg","로그인에 실패했습니다");
+			mv.setViewName("common/errorPage");
 		}
 		return mv;
 	}
@@ -53,11 +58,32 @@ public class MemberController {
 	
 	// 회원가입
 	@RequestMapping("insert.me")
-	public String insertMember(Member m) {
+	public String insertMember(Member m, Model model) {
 		
-		System.out.println(m);
+		// System.out.println("평문 : " + m.getMemPwd());
 		
-		return "main";
+		// 암호문을 만들어내는 작업
+		String encPwd = bcryptPasswordEncoder.encode(m.getMemPwd());
+		// System.out.println("암호문 : " + encPwd);
+		
+		m.setMemPwd(encPwd); // 평문이 아닌 암호문으로 세팅
+		
+		int result = memberService.insertMember(m);
+		
+		if(result>0) {
+			return "redirect:/";
+		} else {
+			model.addAttribute("errorMsg", "회원가입 실패하셨습니다");
+			return "common/errorPage";
+		}
+		
 	}
+	
+	
+	
+	
+	
+	
+	
 	
 }

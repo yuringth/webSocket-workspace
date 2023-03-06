@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<!-- **주의 : 미리 등록을 해두려면 해당 클래스가 진짜 존재하고 있는 상태여야함 -->
 	<typeAliases>
 		<typeAlias type="com.ring.webSocket.member.model.vo.Member" alias="member"/>
-		<typeAlias type="com.ring.webSocket.board.model.vo.Board" alias="board"/>
+		<typeAlias type="com.ring.webSocket.board.model.vo.Board"   alias="board"/>
 	</typeAliases>
 	
 	<!-- 
@@ -23,6 +23,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	 -->
 	<mappers>
 		<mapper resource="/mappers/member-mapper.xml" />
+		<mapper resource="/mappers/board-mapper.xml" />
 	</mappers>
 	<!-- ***주의 : 미리 등록을 해두려면 해당 mapper파일이 진짜 존재하고 있는 상태여야함 + namespace속성까지 작성 되있어야함 -->
     

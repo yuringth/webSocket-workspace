@@ -38,11 +38,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE
 		       MEM_ID = #{memId}
 		   AND
-		       MEM_PWD = #{memPwd}
-		   AND
 		       STATUS = 'Y'
-	
 	</select>
+	
+	
+	<!-- 회원가입 쿼리문  -->
+	<insert id="insertMember" parameterType="member">
+		INSERT
+		  INTO
+		      MEMBER
+		      (
+		       MEM_NO
+		      ,MEM_ID
+		      ,MEM_PWD
+		      ,MEM_NAME
+		      ,EMAIL
+		      ,GENDER
+		      ,AGE
+		      ,PHONE
+		      ,ADDRESS
+		      )
+	    VALUES
+	          (
+	           SEQ_MNO.NEXTVAL
+	          ,#{memId}
+	          ,#{memPwd}
+	          ,#{memName}
+	          ,#{email}
+	          ,#{gender}
+	          ,#{age}
+	          ,#{phone}
+	          ,#{address}
+	          )		      
+	</insert>
 
 
 
