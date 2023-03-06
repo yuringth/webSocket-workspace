@@ -18,6 +18,7 @@ public class MemberController {
 	private MemberService memberService;
 	
 	
+	// 로그인
 	@RequestMapping("login.me")
 	public ModelAndView loginMember(Member m, ModelAndView mv, HttpSession session) {
 		
@@ -34,7 +35,29 @@ public class MemberController {
 		return mv;
 	}
 	
-
 	
+	// 로그아웃
+	@RequestMapping("logout.me")
+	public String logoutMember(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
+	}
+	
+
+	// 회원가입창으로 포워딩
+	@RequestMapping("enrollForm.me")
+	public String enrollForm() {
+		return "member/memberEnrollForm";
+	}
+	
+	
+	// 회원가입
+	@RequestMapping("insert.me")
+	public String insertMember(Member m) {
+		
+		System.out.println(m);
+		
+		return "main";
+	}
 	
 }

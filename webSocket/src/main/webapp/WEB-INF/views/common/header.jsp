@@ -75,13 +75,14 @@
             	<c:choose>
             		<c:when test="${ empty loginUser }">
 	      		        <!-- 로그인 전 -->
-		                <a href="">회원가입</a>
+		                <a href="enrollForm.me">회원가입</a>
 		                <a data-toggle="modal" data-target="#loginModal">로그인</a> 
 	                </c:when>
 	                <c:otherwise>
 		                <!-- 로그인 후 -->
 						<label>${ loginUser.memName }님 환영합니다</label> &nbsp;&nbsp;
 						<a href="">마이페이지</a>                
+						<a href="logout.me">로그아웃</a>                
     				</c:otherwise>
     			</c:choose>
     			

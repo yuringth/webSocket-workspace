@@ -17,27 +17,35 @@ public class MemberServiceImpl implements MemberService {
 	private SqlSessionTemplate sqlSession;
 	
 	
+	// 로그인
 	@Override
 	public Member loginMember(Member m) {
 		// Member loginUser = memberDao.loginMember(sqlSession, m);
 		return memberDao.loginMember(sqlSession, m);
 	}
 
+	// 회원가입
 	@Override
 	public int insertMember(Member m) {
 		return 0;
 	}
 
+	
+	// 회원정보수정
 	@Override
 	public int updateMember(Member m) {
 		return 0;
 	}
 
+	
+	// 회원탈퇴
 	@Override
 	public int deleteMember(Member m) {
 		return 0;
 	}
 
+	
+	// 아이디 중복체크
 	@Override
 	public int idCheck(String checkId) {
 		return 0;
