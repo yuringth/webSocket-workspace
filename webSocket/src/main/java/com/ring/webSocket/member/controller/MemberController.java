@@ -44,7 +44,7 @@ public class MemberController {
 	// 로그아웃
 	@RequestMapping("logout.me")
 	public String logoutMember(HttpSession session) {
-		session.invalidate();
+		session.invalidate(); // session의 기능을 중단시키고 무효화 하는 함수
 		return "redirect:/";
 	}
 	
@@ -56,6 +56,10 @@ public class MemberController {
 	}
 	
 	
+	/**
+	 * @param m : 내가 입력한 회원정보
+	 * @return
+	 */
 	// 회원가입
 	@RequestMapping("insert.me")
 	public String insertMember(Member m, Model model) {
@@ -90,21 +94,60 @@ public class MemberController {
 	// 회원정보 수정
 	@RequestMapping("update.me")
 	public String updateMember(Member m, Model model, HttpSession session) {
+		
 		int result = memberService.updateMember(m);
 		
 		if(result > 0) { // 수정성공
+		
 			// DB로부터 수정된 회원정보를 다시 조회 후, session에 loginUser라는 키값으로 덮어씌우기
 			session.setAttribute("loginUser", memberService.loginMember(m));
 			session.setAttribute("alertMsg", "성공적으로 변경 되었습니다");
 			return "redirect:myPage.me";
+			
 		} else { // 수정실패
+			
 			model.addAttribute("errorMsg", "회원 정보 변경 실패");
 			return "common/errorPage";
+		
+		}
+	}
+	
+	
+	// 회원탈퇴
+	/**
+	 * @param memPwd : 회원 탈퇴 요청 시 사용자가 입력한 비밀번호 평문
+	 * @param session : 로그인 되어있는 loginUser Member객체에서 userPwd를 뽑음 => DB에 기록된 암호화된 비밀번호
+	 * @return
+	 */
+	@RequestMapping("delete.me")
+	public String deleteMember(String memId, String memPwd, HttpSession session) {
+		
+		String encPwd = ((Member)session.getAttribute("loginUser")).getMemPwd();
+		if(bcryptPasswordEncoder.matches(memPwd, encPwd)) { // 평문 비밀번호와 암호문 비밀번호와 일치하는 경우
+			int result = memberService.deleteMember(memId);
+			if(result > 0) { // 탈퇴 성공
+				session.removeAttribute("loginUser");
+				session.setAttribute("alertMsg", "회원탈퇴가 성공하였습니다");
+				return "redirect:/";
+			} else {
+				session.setAttribute("errorMsg", "회원탈퇴가 실패하였습니다");
+				return "common/errorPage";
+			}
+		} else {
+			session.setAttribute("alertMsg", "비밀번호가 다릅니다");
+			return "redirect:myPage.me";
 		}
 		
-		
-		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

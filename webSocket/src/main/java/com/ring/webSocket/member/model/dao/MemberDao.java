@@ -20,4 +20,8 @@ public class MemberDao {
 		return sqlSession.update("memberMapper.updateMember", m);
 	}
 
+	public int deleteMember(SqlSession sqlSession, String memId) {
+		return sqlSession.update("memberMapper.deleteMember", memId);
+	}
+
 }

@@ -88,6 +88,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE
 		      MEM_ID = #{memId}
 	</update>
+	
+	
+	<!-- 회원탈퇴 쿼리문  -->
+	<update id="deleteMember" parameterType="string">
+		UPDATE
+		       MEMBER
+		   SET
+		       STATUS = 'N'
+		 WHERE
+		       MEM_ID = #{memId}
+	</update>
 
 
 </mapper>

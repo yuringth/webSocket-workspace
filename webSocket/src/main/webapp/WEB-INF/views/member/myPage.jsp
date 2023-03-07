@@ -94,16 +94,17 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
-                <form action="" method="post">
+                <form action="delete.me" method="post">
                     <!-- Modal body -->
                     <div class="modal-body">
                         <div align="center">
-                            탈퇴 후 복구가 불가능합니다. <br>
-                            정말로 탈퇴 하시겠습니까? <br>
+			                            탈퇴 후 복구가 불가능합니다. <br>
+			                            정말로 탈퇴 하시겠습니까? <br>
                         </div>
                         <br>
                             <label for="userPwd" class="mr-sm-2">Password : </label>
-                            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter Password" id="userPwd" name=""> <br>
+                            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter Password" id="memPwd" name="memPwd"> <br>
+                            <input type="hidden" name="memId" value="${ loginUser.memId }">
                     </div>
                     <!-- Modal footer -->
                     <div class="modal-footer" align="center">
