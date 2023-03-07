@@ -35,7 +35,7 @@ public class MemberServiceImpl implements MemberService {
 	// 회원정보수정
 	@Override
 	public int updateMember(Member m) {
-		return 0;
+		return memberDao.updateMember(sqlSession, m);
 	}
 
 	

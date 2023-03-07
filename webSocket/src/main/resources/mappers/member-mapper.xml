@@ -73,7 +73,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 
 
-
+	<!-- 회원수정 쿼리문  -->
+	<update id="updateMember" parameterType="member">
+		UPDATE
+		      MEMBER
+		  SET
+		      MEM_NAME = #{memName}
+		     ,EMAIL = #{email}
+		     ,AGE = #{age}
+		     ,PHONE = #{phone}
+		     ,ADDRESS = #{address}
+		     ,GENDER = #{gender}
+		     ,MODIFY_DATE = SYSDATE
+		WHERE
+		      MEM_ID = #{memId}
+	</update>
 
 
 </mapper>

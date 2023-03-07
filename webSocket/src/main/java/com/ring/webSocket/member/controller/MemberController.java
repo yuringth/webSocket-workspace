@@ -87,8 +87,24 @@ public class MemberController {
 	}
 	
 	
-	
-	
+	// 회원정보 수정
+	@RequestMapping("update.me")
+	public String updateMember(Member m, Model model, HttpSession session) {
+		int result = memberService.updateMember(m);
+		
+		if(result > 0) { // 수정성공
+			// DB로부터 수정된 회원정보를 다시 조회 후, session에 loginUser라는 키값으로 덮어씌우기
+			session.setAttribute("loginUser", memberService.loginMember(m));
+			session.setAttribute("alertMsg", "성공적으로 변경 되었습니다");
+			return "redirect:myPage.me";
+		} else { // 수정실패
+			model.addAttribute("errorMsg", "회원 정보 변경 실패");
+			return "common/errorPage";
+		}
+		
+		
+		
+	}
 	
 	
 }

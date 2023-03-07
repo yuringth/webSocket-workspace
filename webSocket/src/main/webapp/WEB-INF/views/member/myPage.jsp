@@ -34,30 +34,30 @@
             <h2>마이페이지</h2>
             <br>
 
-            <form action="" method="post">
+            <form action="update.me" method="post">
                 <div class="form-group">
                     <label for="memId">* ID : </label>
-                    <input type="text" class="form-control" id="memId" value="${ loginUser.memId }" name="" readonly> <br>
+                    <input type="text" class="form-control" id="memId" value="${ loginUser.memId }" name="memId" readonly> <br>
 
                     <label for="userName">* Name : </label>
-                    <input type="text" class="form-control" id="memName" value="${ loginUser.memName }" name="" required> <br>
+                    <input type="text" class="form-control" id="memName" value="${ loginUser.memName }" name="memName" required> <br>
 
                     <label for="email"> &nbsp; Email : </label>
-                    <input type="text" class="form-control" id="email" value="${ loginUser.email }" name=""> <br>
+                    <input type="text" class="form-control" id="email" value="${ loginUser.email }" name="email"> <br>
 
                     <label for="age"> &nbsp; Age : </label>
-                    <input type="number" class="form-control" id="age" value="${ loginUser.age }" name=""> <br>
+                    <input type="number" class="form-control" id="age" value="${ loginUser.age }" name="age"> <br>
 
                     <label for="phone"> &nbsp; Phone : </label>
-                    <input type="tel" class="form-control" id="phone" value="${ loginUser.phone }" name=""> <br>
+                    <input type="tel" class="form-control" id="phone" value="${ loginUser.phone }" name="phone"> <br>
                     
                     <label for="address"> &nbsp; Address : </label>
-                    <input type="text" class="form-control" id="address" value="${ loginUser.address }" name=""> <br>
+                    <input type="text" class="form-control" id="address" value="${ loginUser.address }" name="address"> <br>
                     
                     <label for=""> &nbsp; Gender : </label> &nbsp;&nbsp;
-                    <input type="radio" id="Male" value="M" name="">
+                    <input type="radio" id="Male" value="M" name="gender">
                     <label for="Male">남자</label> &nbsp;&nbsp;
-                    <input type="radio" id="Female" value="F" name="">
+                    <input type="radio" id="Female" value="F" name="gender">
                     <label for="Female">여자</label> &nbsp;&nbsp;
                     
                     
