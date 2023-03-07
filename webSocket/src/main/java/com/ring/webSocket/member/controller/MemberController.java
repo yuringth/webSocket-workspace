@@ -80,6 +80,11 @@ public class MemberController {
 	}
 	
 	
+	// 마이페이지 창으로 포워딩
+	@RequestMapping("myPage.me")
+	public String myPage() {
+		return "member/myPage";
+	}
 	
 	
 	
