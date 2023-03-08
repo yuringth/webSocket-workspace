@@ -100,5 +100,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		       MEM_ID = #{memId}
 	</update>
 
+	
+	<!-- 아이디 중복체크 쿼리문 -->
+	<select id="idCheck" resultType="_int">
+		SELECT 
+		      COUNT(*)
+		  FROM
+		      MEMBER
+		 WHERE
+		      MEM_ID = #{checkId}
+	</select>
+	
+	
+	
 
 </mapper>

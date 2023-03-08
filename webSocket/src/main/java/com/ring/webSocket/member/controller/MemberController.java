@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ring.webSocket.member.model.service.MemberService;
@@ -141,9 +142,23 @@ public class MemberController {
 	}
 	
 	
-	
-	
-	
+	/**
+	 * @param checkId : 내가 입력한 id값
+	 */
+	// 아이디 중복체크
+	@ResponseBody
+	@RequestMapping("idCheck.me")
+	public String idCheck(String checkId) {
+		
+		int count = memberService.idCheck(checkId);
+		
+		// 네이버 방식 참고 NNNNY : 사용가능 / NNNNN : 사용불가능
+		if(count > 0) { // 이미 존재하는 아이디  (NNNNN : 사용불가능)
+			return "NNNNN";
+		} else { // 사용 가능 아이디 (NNNNY : 사용가능)
+			return "NNNNY";
+		}
+	}
 	
 	
 	

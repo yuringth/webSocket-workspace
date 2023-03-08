@@ -36,11 +36,12 @@
             <h2>회원가입</h2>
             <br>
 
-            <form action="insert.me" method="post">
+            <form action="insert.me" method="post" id="enroll-form">
                 <div class="form-group">
                     <label for="memId">* ID : </label>
                     <input type="text" class="form-control" id="memId" placeholder="Please Enter ID" name="memId" required> <br>
-					<!-- 아이디 중복체크 -->
+					
+					<!--아이디 중복체크-->
 					<div id="checkResult" style="font-size:0.7em; display:none;"></div>
 					<br>
 
@@ -82,6 +83,52 @@
         <br><br>
 
     </div>
+    
+    
+    <script>
+    	$(function(){
+    		// 내가 입력한 id값
+    		const $idInput = $('.form-group #memId');
+    		
+    		$idInput.keyup(function(){
+    			// console.log($idInput.val());
+    			
+    			// 최소 다섯글자 이상으로 입력할 때만 ajax요청해서 중복체크(입력한 값이 다섯글자 이상인지)
+    			if($idInput.val().length >= 5){
+    				
+    				$.ajax({
+    					url : 'idCheck.me',
+    					data : {
+    						checkId : $idInput.val()
+    					},
+    					success : function(result){
+    						// console.log(result);
+    						if(result == 'NNNNN'){ // 사용 불가능
+    							$('#checkResult').show();
+    							$('#checkResult').css('color', 'red').text('이미 사용중이거나 탈퇴한 아이디입니다.');
+    							$('#enroll-form :submit').attr('disabled', true);
+    						} 
+    						else{ // 사용가능
+    							$('#checkResult').show();
+    							$('#checkResult').css('color', 'forestgreen').text('멋진 아이디네요!');
+    							$('#enroll-form :submit').removeAttr('disabled');
+    						}
+    					},
+    					error : function(){
+    						console.log('아이디 중복체크용 ajax통신 실패');
+    					}
+    				});
+    			} else {
+    				$('#checkResult').hide();
+    				$('#enroll-form :submit').attr('disabled', true);
+    			}
+    			
+    		});
+    	})
+    </script>
+    
+    
+    
 
     <jsp:include page="../common/footer.jsp" />
 

@@ -49,7 +49,7 @@ public class MemberServiceImpl implements MemberService {
 	// 아이디 중복체크
 	@Override
 	public int idCheck(String checkId) {
-		return 0;
+		return memberDao.idCheck(sqlSession, checkId);
 	}
 
 }
