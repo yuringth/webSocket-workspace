@@ -40,6 +40,9 @@
                 <div class="form-group">
                     <label for="memId">* ID : </label>
                     <input type="text" class="form-control" id="memId" placeholder="Please Enter ID" name="memId" required> <br>
+					<!-- 아이디 중복체크 -->
+					<div id="checkResult" style="font-size:0.7em; display:none;"></div>
+					<br>
 
                     <label for="memPwd">* Password : </label>
                     <input type="password" class="form-control" id="memPwd" placeholder="Please Enter Password" name="memPwd" required> <br>
@@ -70,7 +73,8 @@
                 </div> 
                 <br>
                 <div class="btns" align="center">
-                    <button type="submit" class="btn btn-primary">회원가입</button>
+                	<!-- 회원가입버튼 비활성화  -->
+                    <button type="submit" class="btn btn-primary disabled">회원가입</button>
                     <button type="reset" class="btn btn-danger">초기화</button>
                 </div>
             </form>
