@@ -28,18 +28,16 @@ public class AjaxController {
 	// @ResponseBody => 내가 지금 return하는 정보가 뷰정보가 아니라 응답 데이터를 클라이언트한테 return하는거야
 	// produces 속성 사용 전제조건 : 한글이 포함되어있는경우
 	
+	/*
 	@ResponseBody
 	@RequestMapping(value="ajax.do", produces="text/html; charset=UTF-8")
 	public String ajaxMethod1(String name, int age) {
 		String responseData = "응답 문자열 : " + name + "은(는)" + age + "살 입니다.";
 		return responseData;
 	}
+	*/
 	
-	
-	
-	
-	
-	
+
 	
 	
 }
