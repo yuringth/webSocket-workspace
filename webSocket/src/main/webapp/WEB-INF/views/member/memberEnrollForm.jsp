@@ -154,7 +154,7 @@
 			} else{
 				$('#regExp-Result').show();
 				$('#regExp-Result').css('color', 'red').text('8~15자의 영문, 숫자, ~!@# 특수문자의 입력이 가능합니다.');
-				$('#enroll-form :submit').removeAttr('disabled');
+				$('#enroll-form :submit').attr('disabled', true);
 			}
     	})
     </script>
