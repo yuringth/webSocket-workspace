@@ -49,7 +49,12 @@
                     <input type="password" class="form-control" id="memPwd" placeholder="Please Enter Password" name="memPwd" required> <br>
 
                     <label for="checkPwd">* Password Check : </label>
-                    <input type="password" class="form-control" id="checkPwd" placeholder="Please Enter Password" required> <br>
+                    <input type="password" class="form-control" id="checkPwd" placeholder="Please Enter Password" name="checkPwd" required> <br>
+
+					<!--비밀번호 일치 검사-->
+					<div id="checkResult-pwd" style="font-size:0.7em; display:none;"></div>
+					<br>
+
 
                     <label for="memName">* Name : </label>
                     <input type="text" class="form-control" id="memName" placeholder="Please Enter Name" name="memName" required> <br>
@@ -86,6 +91,8 @@
     
     
     <script>
+    	// id 중복 체크용 스크립트
+    	
     	$(function(){
     		// 내가 입력한 id값
     		const $idInput = $('.form-group #memId');
@@ -127,6 +134,25 @@
     	})
     </script>
     
+    
+    <script>
+    	// 비밀번호 일치 검사 스크립트
+    	
+    	$('input[name=checkPwd]').focusout(function(){
+    		var $memPwd = $('#memPwd').val();
+    		var $checkPwd = $('#checkPwd').val();
+    	
+   			if($memPwd == $checkPwd){
+   				$('#checkResult-pwd').show();
+				$('#checkResult-pwd').css('color', 'forestgreen').text('비밀번호가 일치합니다.');
+				$('#enroll-form :submit').removeAttr('disabled');
+   			} else {
+   				$('#checkResult-pwd').show();
+				$('#checkResult-pwd').css('color', 'red').text('비밀번호가 불일치합니다.');
+				$('#enroll-form :submit').attr('disabled', true);
+   			}
+    	})
+    </script>
     
     
 
