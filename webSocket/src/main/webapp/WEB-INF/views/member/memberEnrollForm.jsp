@@ -46,13 +46,18 @@
 					<br>
 
                     <label for="memPwd">* Password : </label>
-                    <input type="password" class="form-control" id="memPwd" placeholder="Please Enter Password" name="memPwd" required> <br>
+                    <input type="password" class="form-control" id="memPwd" placeholder="8~15자의 영문, 숫자, ~!@# 특수문자의 입력이 가능합니다." name="memPwd" required> <br>
+
+					<!--비밀번호 유효성 검사-->
+					<div id="regExp-Result" style="font-size:0.7em; display:none;"></div>
+					<br>
+
 
                     <label for="checkPwd">* Password Check : </label>
                     <input type="password" class="form-control" id="checkPwd" placeholder="Please Enter Password" name="checkPwd" required> <br>
 
 					<!--비밀번호 일치 검사-->
-					<div id="checkResult-pwd" style="font-size:0.7em; display:none;"></div>
+					<div id="checkPwd-Result" style="font-size:0.7em; display:none;"></div>
 					<br>
 
 
@@ -136,6 +141,26 @@
     
     
     <script>
+    	// 비밀번호 유효성 검사(정규표현식 사용)
+    	$('input[name=memPwd]').focusout(function(){
+    		
+    		var regExp = /^[a-zA-Z\d~!@#]{8,15}$/;
+			var $memPwd = $('#memPwd').val();
+			
+			if(regExp.test($('#memPwd').val())){
+				$('#regExp-Result').show();
+				$('#regExp-Result').css('color', 'forestgreen').text('비밀번호를 사용할 수 있습니다.');
+				$('#enroll-form :submit').removeAttr('disabled');
+			} else{
+				$('#regExp-Result').show();
+				$('#regExp-Result').css('color', 'red').text('8~15자의 영문, 숫자, ~!@# 특수문자의 입력이 가능합니다.');
+				$('#enroll-form :submit').removeAttr('disabled');
+			}
+    	})
+    </script>
+    
+    
+    <script>
     	// 비밀번호 일치 검사 스크립트
     	
     	$('input[name=checkPwd]').focusout(function(){
@@ -143,12 +168,11 @@
     		var $checkPwd = $('#checkPwd').val();
     	
    			if($memPwd == $checkPwd){
-   				$('#checkResult-pwd').show();
-				$('#checkResult-pwd').css('color', 'forestgreen').text('비밀번호가 일치합니다.');
-				$('#enroll-form :submit').removeAttr('disabled');
+   				$('#checkPwd-Result').show();
+				$('#checkPwd-Result').css('color', 'forestgreen').text('비밀번호가 일치합니다.');
    			} else {
-   				$('#checkResult-pwd').show();
-				$('#checkResult-pwd').css('color', 'red').text('비밀번호가 불일치합니다.');
+   				$('#checkPwd-Result').show();
+				$('#checkPwd-Result').css('color', 'red').text('비밀번호가 불일치합니다.');
 				$('#enroll-form :submit').attr('disabled', true);
    			}
     	})
