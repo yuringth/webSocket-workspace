@@ -24,6 +24,12 @@
 	<context:component-scan base-package="com.ring.webSocket" />
 	
 	
+	<interceptors>
+		<interceptor>
+			<mapping path="/myPage.me" />
+			<beans:bean class="com.ring.webSocket.common.interceptor.LoginInterceptor" id="loginInterceptor"></beans:bean>		
+		</interceptor>
+	</interceptors>
 	
 	
 </beans:beans>
