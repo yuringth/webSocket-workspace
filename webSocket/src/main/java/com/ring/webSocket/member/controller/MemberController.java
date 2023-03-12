@@ -1,7 +1,12 @@
 package com.ring.webSocket.member.controller;
 
+import java.text.DecimalFormat;
+import java.text.Format;
+import java.util.Random;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ring.webSocket.email.CertVO;
 import com.ring.webSocket.member.model.service.MemberService;
 import com.ring.webSocket.member.model.vo.Member;
 
@@ -182,8 +188,59 @@ public class MemberController {
 	}
 	
 	
-
+	/**
+	 * @param email : 입력한 이메일 주소
+	 * @param request : IP주소
+	 */
+	@PostMapping("input")
+	public String input(String email, HttpServletRequest request) throws MessagingException {
+		
+		MimeMessage message = sender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+		
+		
+		
+		// IP주소 생성
+		String ip = request.getRemoteAddr(); 
+		
+		// 6자리 랜덤 값 만들기
+		Random r = new Random();
+		int n = r.nextInt(100000);
+		Format f = new DecimalFormat("000000");
+		String secret = f.format(n);
+		// String secret = generateSecret();
+		
+		// VO객체에 담기
+		CertVO certVO = CertVO
+				        .builder()
+				        .who(ip)
+				        .secret(secret)
+				        .build();
+		
+		memberService.sendMail(certVO);
+		
+		// 사용자에게 인증 메일 전송
+		helper.setTo(email);
+		helper.setSubject("인증번호입니다.");
+		helper.setText("인증번호 : " + secret);
+		sender.send(message);
+		
+		return "redirect:check";
+		
+	}
 	
+	/*
+	public String generateSecret() {
+		// 6자리 랜덤 값 만들기
+		Random r = new Random();
+		int n = r.nextInt(100000);
+		Format f = new DecimalFormat("000000");
+		String secret = f.format(n);
+		
+		return secret;
+		
+	}
+	*/
 	
 	
 	

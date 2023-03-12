@@ -4,6 +4,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ring.webSocket.email.CertVO;
 import com.ring.webSocket.member.model.dao.MemberDao;
 import com.ring.webSocket.member.model.vo.Member;
 
@@ -50,6 +51,12 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int idCheck(String checkId) {
 		return memberDao.idCheck(sqlSession, checkId);
+	}
+
+	// 메일인증
+	@Override
+	public void sendMail(CertVO certVO) {
+		memberDao.insertSecret(sqlSession, certVO);
 	}
 
 }

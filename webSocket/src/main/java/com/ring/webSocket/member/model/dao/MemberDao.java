@@ -1,8 +1,10 @@
 package com.ring.webSocket.member.model.dao;
 
 import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.ring.webSocket.email.CertVO;
 import com.ring.webSocket.member.model.vo.Member;
 
 @Repository
@@ -26,6 +28,10 @@ public class MemberDao {
 
 	public int idCheck(SqlSession sqlSession, String checkId) {
 		return sqlSession.selectOne("memberMapper.idCheck", checkId);
+	}
+
+	public void insertSecret(SqlSessionTemplate sqlSession, CertVO certVO) {
+		sqlSession.insert("memberMapper.insertSecret", certVO);
 	}
 	
 }

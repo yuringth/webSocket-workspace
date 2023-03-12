@@ -1,5 +1,6 @@
 package com.ring.webSocket.member.model.service;
 
+import com.ring.webSocket.email.CertVO;
 import com.ring.webSocket.member.model.vo.Member;
 
 public interface MemberService {
@@ -19,5 +20,7 @@ public interface MemberService {
 	// 아이디 중복체크(select)
 	int idCheck(String checkId);
 	
+	// 메일인증
+	void sendMail(CertVO certVO);
 	
 }

@@ -112,7 +112,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	
-	
-	
+	<!-- 메일인증 쿼리문 -->
+	<select id="insertSecret" parameterType="com.ring.webSocket.email.CertVO">
+		INSERT 
+		  INTO 
+		      CERT
+		      (
+		        WHO
+		       ,SECRET
+		       ,WHEN
+		      )
+		VALUES
+		      (
+		       #{who}
+		      ,#{secret}
+		      ,SYSDATE
+		      )	
+	</select>
 
 </mapper>
