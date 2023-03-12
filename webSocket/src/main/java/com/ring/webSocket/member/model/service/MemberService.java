@@ -24,6 +24,6 @@ public interface MemberService {
 	int insertEmail(CertVO certVO);
 
 	// 메일인증 확인
-	boolean selectEmail(CertVO certVO);
+	int selectEmail(CertVO certVO);
 	
 }

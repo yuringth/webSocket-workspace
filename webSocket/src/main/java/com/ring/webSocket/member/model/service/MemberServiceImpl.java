@@ -61,7 +61,7 @@ public class MemberServiceImpl implements MemberService {
 
 	// 메일인증 확인
 	@Override
-	public boolean selectEmail(CertVO certVO) {
+	public int selectEmail(CertVO certVO) {
 		return memberDao.selectEmail(sqlSession, certVO);
 	}
 

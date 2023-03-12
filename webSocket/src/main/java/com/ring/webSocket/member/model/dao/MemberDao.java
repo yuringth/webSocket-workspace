@@ -34,15 +34,17 @@ public class MemberDao {
 		return sqlSession.insert("memberMapper.insertSecret", certVO);
 	}
 
-	public boolean selectEmail(SqlSessionTemplate sqlSession, CertVO certVO) {
+	public int selectEmail(SqlSessionTemplate sqlSession, CertVO certVO) {
 		
 		
 		CertVO result = sqlSession.selectOne("memberMapper.selectEmail", certVO);
 		
-		if(result != null) {
+		if(result != null) { // 발급받은 인증키가 있음 => 인증완료 후 데이터 삭제
 			sqlSession.delete("memberMapper.removeEmail", certVO);
 		}
-		return result != null;
+		return 1; // result(certVO), true
+		
+		
 		
 		/*
 		int result = sqlSession.selectOne("memberMapper.selectEmail", certVO);

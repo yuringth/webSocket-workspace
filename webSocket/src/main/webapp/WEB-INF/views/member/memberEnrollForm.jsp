@@ -71,13 +71,13 @@
                     <!-- 메일 인증 -->
                     <div id="email-Area">
 	                    <input type="text" class="form-control" id="email" placeholder="Please Enter Email" name="email" required> <br>
-						<button type="submit" class="btn btn-primary" onclick="emailCheck();">인증요청</button>
+						<button type="button" class="btn btn-primary" onclick="emailCheck();">인증요청</button>
 					</div>
 					
 					<!-- 메일 인증 확인  -->
 					<div id="secret-Area" style="display:none;">
 						<input type="text" class="form-control" id="secret" placeholder="Please Enter Verification Code" name="secret" required> <br>
-						<button type="submit" class="btn btn-primary" onclick="secretCheck();">인증확인</button>
+						<button type="button" class="btn btn-primary" onclick="secretCheck();">인증확인</button>
 					</div>
 					
 					<!-- 메일 인증 확인 결과-->
@@ -240,6 +240,7 @@
     <!-- 이메일 인증확인 클릭 시 -->
     <script>
     	function secretCheck(){
+			//console.log($('#secret').val());
     		$.ajax({
     			url : 'selectCode.me',
     			type : 'post',
@@ -247,17 +248,18 @@
     				secret : $('#secret').val()
     			},
     			success : function(result){
+    				console.log(result);
     				
-    				if(result == 'Y'){
+    				if(result == 'success'){
+    					alert('인증성공');
     					$('#secret-Result').show();
     					$('#secret-Result').css('color', 'forestgreen').text('인증되었습니다.');
     					$('#email').attr('readonly', true);
-    					$('#email-Area').hide();
-    					$('#enroll-form :submit').removeAttr('disabled');
+    					$('#secret-Area').hide();
     				} else{
+    					alert('인증실패');
     					$('#secret-Result').show();
     					$('#secret-Result').css('color', 'red').text('인증번호가 일치하지 않습니다.');
-    					$('#enroll-form :submit').attr('disabled', true);
     				}
     			},
     			error : function(){

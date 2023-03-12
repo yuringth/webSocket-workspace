@@ -177,7 +177,7 @@ public class MemberController {
 	}
 	
 	
-	
+	/*
 	@GetMapping("input")
 	public String input() {
 		return "member/input";
@@ -187,6 +187,8 @@ public class MemberController {
 	public String check() {
 		return "member/check";
 	}
+	*/
+	
 	
 	
 	/**
@@ -234,6 +236,7 @@ public class MemberController {
 	 * @param secret : 발급받은 인증번호
 	 * @param request : IP 주소
 	 */
+	/*
 	@ResponseBody
 	@PostMapping(value="selectCode.me", produces="application/json; charset=UTF-8")
 	public String selectEmail(String secret, HttpServletRequest request) {
@@ -245,10 +248,14 @@ public class MemberController {
 		
 		boolean result = memberService.selectEmail(certVO);
 		
-		return "result : " + result;
+		if(result == true) {
+			return "result : " + result;
+		} else{
+			return "result : " + result;
+		}
 		
 		
-		/*
+		////////////////
 		// CertVO cannot be cast to java.lang.Integer 오류
 		int result = memberService.selectEmail(certVO);
 		//int result = Integer.parseInt(String.valueOf(memberService.selectEmail(certVO)));
@@ -267,9 +274,29 @@ public class MemberController {
 		//return Integer.toString(memberService.selectEmail(certVO));
 		
 		//return new Gson().toJson(result);
-		*/
-		
 		
 	}
+    
+*/
+	
+	
+	@ResponseBody
+	@PostMapping(value="selectCode.me", produces="text/html; charset=UTF-8")
+	public String selectEmail(String secret, HttpServletRequest request) {
+		
+		CertVO certVO = CertVO
+				       .builder()
+				       .who(request.getRemoteAddr())
+				       .secret(secret).build();
+		
+		if(memberService.selectEmail(certVO) > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
+	}
+	
+	
+	
 	
 }
