@@ -132,20 +132,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<!-- 메일인증 쿼리문 (조건 3분)-->
-	<select id="selectEmail" resultType="com.ring.webSocket.email.CertVO" parameterType="com.ring.webSocket.email.CertVO">
+	<select id="selectEmail" resultType="_int" parameterType="com.ring.webSocket.email.CertVO">
 		SELECT
-		       WHO
-		      ,SECRET
-		      ,WHEN
+		       COUNT(*)
 		  FROM
 		       CERT
-		 WHERE
+ 		 WHERE
 		       WHO = #{who}
 		   AND
 		       SECRET = #{secret}
 		   AND
-		       WHEN BETWEEN SYSDATE - 3/24/60 AND SYSDATE
+		       WHEN BETWEEN SYSDATE - 3/24/60 AND SYSDATE 
 	</select>
+
 	
 	<delete id="removeEmail" parameterType="com.ring.webSocket.email.CertVO" >
 		DELETE
@@ -155,6 +154,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   AND
 		       SECRET = #{secret}
 	</delete>
-	
 
 </mapper>

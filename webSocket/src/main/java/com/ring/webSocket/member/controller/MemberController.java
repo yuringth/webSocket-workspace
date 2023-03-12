@@ -15,8 +15,8 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -190,14 +190,16 @@ public class MemberController {
 	*/
 	
 	
-	
 	/**
 	 * @param email : 입력한 이메일 주소
 	 * @param request : IP주소
 	 */
+	
+	
 	@ResponseBody
 	@PostMapping(value="insertCode.me", produces="application/json; charset=UTF-8")
 	public String insertEmail(String email, HttpServletRequest request) throws MessagingException {
+		
 		
 		MimeMessage message = sender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
@@ -221,6 +223,8 @@ public class MemberController {
 		
 		int result = memberService.insertEmail(certVO);
 		
+		System.out.println(result); // insert 성공 시 1
+		
 		// 사용자에게 인증 메일 전송
 		helper.setTo(email);
 		helper.setSubject("인증번호입니다.");
@@ -230,6 +234,7 @@ public class MemberController {
 		return new Gson().toJson(result);
 		
 	}
+	
 	
 	
 	/**
@@ -284,18 +289,48 @@ public class MemberController {
 	@PostMapping(value="selectCode.me", produces="text/html; charset=UTF-8")
 	public String selectEmail(String secret, HttpServletRequest request) {
 		
+		System.out.println("컨트롤러변수: "+ secret);
+		
 		CertVO certVO = CertVO
 				       .builder()
 				       .who(request.getRemoteAddr())
 				       .secret(secret).build();
+		
+		System.out.println("컨트롤러 결과 : " + memberService.selectEmail(certVO));
 		
 		if(memberService.selectEmail(certVO) > 0) {
 			return "success";
 		} else {
 			return "fail";
 		}
+		
+	}
+	 
+
+	/*
+	@ResponseBody
+	@PostMapping(value="selectCode.me", produces="text/html; charset=UTF-8")
+	public String selectEmail(@RequestBody String secret, HttpServletRequest request) {
+		
+		System.out.println("컨트롤러변수: "+ secret);
+		
+		CertVO certVO = CertVO
+				       .builder()
+				       .who(request.getRemoteAddr())
+				       .secret(secret).build();
+		
+		System.out.println("컨트롤러" + certVO); // CertVO(who=0:0:0:0:0:0:0:1, secret=123546, when=null)
+		
+		if(memberService.selectEmail(certVO) > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
+		
 	}
 	
+	*/
+	 
 	
 	
 	

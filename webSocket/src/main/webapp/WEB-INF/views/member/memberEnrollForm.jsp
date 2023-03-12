@@ -240,7 +240,7 @@
     <!-- 이메일 인증확인 클릭 시 -->
     <script>
     	function secretCheck(){
-			//console.log($('#secret').val());
+			console.log($('#secret').val());
     		$.ajax({
     			url : 'selectCode.me',
     			type : 'post',
@@ -248,7 +248,8 @@
     				secret : $('#secret').val()
     			},
     			success : function(result){
-    				console.log(result);
+    				
+    				console.log("ajax 결과  : "+  result);
     				
     				if(result == 'success'){
     					alert('인증성공');

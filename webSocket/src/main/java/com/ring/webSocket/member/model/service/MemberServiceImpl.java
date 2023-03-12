@@ -62,6 +62,9 @@ public class MemberServiceImpl implements MemberService {
 	// 메일인증 확인
 	@Override
 	public int selectEmail(CertVO certVO) {
+		
+		System.out.println("서비스단 : " + memberDao.selectEmail(sqlSession, certVO)); // 1을 return하니까 무조건 1이뜨지
+		
 		return memberDao.selectEmail(sqlSession, certVO);
 	}
 
