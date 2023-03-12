@@ -78,7 +78,7 @@ public class MemberController {
 	 */
 	// 회원가입
 	@RequestMapping("insert.me")
-	public String insertMember(Member m, Model model) {
+	public String insertMember(Member m, Model model, HttpSession session) {
 		
 		// System.out.println("평문 : " + m.getMemPwd());
 		
@@ -91,6 +91,7 @@ public class MemberController {
 		int result = memberService.insertMember(m);
 		
 		if(result>0) {
+			session.setAttribute("alertMsg", "회원 가입 축하드립니다~!");
 			return "redirect:/";
 		} else {
 			model.addAttribute("errorMsg", "회원가입 실패하셨습니다");
@@ -206,6 +207,7 @@ public class MemberController {
 				        .build();
 		
 		int result = memberService.insertEmail(certVO);
+		
 		
 		// 사용자에게 인증 메일 전송
 		helper.setTo(email);

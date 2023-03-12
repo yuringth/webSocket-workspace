@@ -225,8 +225,8 @@
 	    		},
 	    		success : function(result){
 	    			if(result > 0){
-	    				//3분시간제한 넣어야함
 	    				$('#secret-Area').show();
+	    				$('#enroll-form :submit').attr('disabled', true);
 	    			}
 	    		},
 	    		error : function(){
@@ -240,7 +240,6 @@
     <!-- 이메일 인증확인 클릭 시 -->
     <script>
     	function secretCheck(){
-			console.log($('#secret').val());
     		$.ajax({
     			url : 'selectCode.me',
     			type : 'post',
@@ -249,18 +248,18 @@
     			},
     			success : function(result){
     				
-    				console.log("ajax 결과  : "+  result);
-    				
     				if(result == 'success'){
-    					alert('인증성공');
+    					alert('인증 성공');
     					$('#secret-Result').show();
     					$('#secret-Result').css('color', 'forestgreen').text('인증되었습니다.');
     					$('#email').attr('readonly', true);
     					$('#secret-Area').hide();
+    					$('#enroll-form :submit').removeAttr('disabled');
     				} else{
-    					alert('인증실패');
+    					alert('인증 실패');
     					$('#secret-Result').show();
-    					$('#secret-Result').css('color', 'red').text('인증번호가 일치하지 않습니다.');
+    					$('#secret-Result').css('color', 'red').text('인증번호가 일치하지 않습니다. 다시 입력해주세요.');
+    					$('#enroll-form :submit').attr('disabled', true);
     				}
     			},
     			error : function(){
