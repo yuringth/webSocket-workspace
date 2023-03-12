@@ -113,7 +113,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<!-- 메일인증 쿼리문 -->
-	<select id="insertSecret" parameterType="com.ring.webSocket.email.CertVO">
+	<insert id="insertSecret" parameterType="com.ring.webSocket.email.CertVO">
 		INSERT 
 		  INTO 
 		      CERT
@@ -128,6 +128,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		      ,#{secret}
 		      ,SYSDATE
 		      )	
+	</insert>
+	
+	
+	<!-- 메일인증 쿼리문 (조건 3분)-->
+	<select id="validate" resultType="com.ring.webSocket.email.CertVO" parameterType="com.ring.webSocket.email.CertVO">
+		SELECT
+		       WHO
+		      ,SECRET
+		      ,WHEN
+		  FROM
+		       CERT
+		 WHERE
+		       WHO = #{who}
+		   AND
+		       SECRET = #{secret}
+		   AND
+		       WHEN BETWEEN SYSDATE - 3/24/60 AND SYSDATE
 	</select>
+	
+	<delete id="remove" parameterType="com.ring.webSocket.email.CertVO" >
+		DELETE
+		       CERT
+		 WHERE 	
+		       WHO = #{who}
+		   AND
+		       SECRET = #{secret}
+	</delete>
+	
 
 </mapper>

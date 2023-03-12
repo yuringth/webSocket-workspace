@@ -199,7 +199,6 @@ public class MemberController {
 		MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 		
 		
-		
 		// IP주소 생성
 		String ip = request.getRemoteAddr(); 
 		
@@ -208,7 +207,6 @@ public class MemberController {
 		int n = r.nextInt(100000);
 		Format f = new DecimalFormat("000000");
 		String secret = f.format(n);
-		// String secret = generateSecret();
 		
 		// VO객체에 담기
 		CertVO certVO = CertVO
@@ -229,20 +227,23 @@ public class MemberController {
 		
 	}
 	
-	/*
-	public String generateSecret() {
-		// 6자리 랜덤 값 만들기
-		Random r = new Random();
-		int n = r.nextInt(100000);
-		Format f = new DecimalFormat("000000");
-		String secret = f.format(n);
+	
+	/**
+	 * @param secret : 발급받은 인증번호
+	 * @param request : IP 주소
+	 */
+	@ResponseBody
+	@PostMapping("check")
+	public String check(String secret, HttpServletRequest request) {
 		
-		return secret;
+		CertVO certVO = CertVO
+				       .builder()
+				       .who(request.getRemoteAddr())
+				       .secret(secret).build();
 		
+		boolean result = memberService.validate(certVO);
+		
+		return "result : " + result;
 	}
-	*/
-	
-	
-	
 	
 }

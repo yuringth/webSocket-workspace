@@ -33,5 +33,17 @@ public class MemberDao {
 	public void insertSecret(SqlSessionTemplate sqlSession, CertVO certVO) {
 		sqlSession.insert("memberMapper.insertSecret", certVO);
 	}
+
+	public boolean validate(SqlSessionTemplate sqlSession, CertVO certVO) {
+		
+		CertVO result = sqlSession.selectOne("memberMapper.validate", certVO);
+		
+		// 인증완료된 인증번호는 인증 후, 데이터 삭제
+		if(result != null) {
+			sqlSession.delete("memberMapper.remove", certVO);
+		}
+		
+		return result != null; // == true
+	}
 	
 }

@@ -53,10 +53,16 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.idCheck(sqlSession, checkId);
 	}
 
-	// 메일인증
+	// 메일인증 번호 발급
 	@Override
 	public void sendMail(CertVO certVO) {
 		memberDao.insertSecret(sqlSession, certVO);
+	}
+
+	// 메일인증 확인
+	@Override
+	public boolean validate(CertVO certVO) {
+		return memberDao.validate(sqlSession, certVO);
 	}
 
 }
