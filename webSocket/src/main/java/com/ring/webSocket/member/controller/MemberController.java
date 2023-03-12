@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.ring.webSocket.email.CertVO;
 import com.ring.webSocket.member.model.service.MemberService;
 import com.ring.webSocket.member.model.vo.Member;
@@ -192,8 +193,9 @@ public class MemberController {
 	 * @param email : 입력한 이메일 주소
 	 * @param request : IP주소
 	 */
-	@PostMapping("input")
-	public String input(String email, HttpServletRequest request) throws MessagingException {
+	@ResponseBody
+	@PostMapping(value="insertCode.me", produces="application/json; charset=UTF-8")
+	public String insertEmail(String email, HttpServletRequest request) throws MessagingException {
 		
 		MimeMessage message = sender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
@@ -215,7 +217,7 @@ public class MemberController {
 				        .secret(secret)
 				        .build();
 		
-		memberService.sendMail(certVO);
+		int result = memberService.insertEmail(certVO);
 		
 		// 사용자에게 인증 메일 전송
 		helper.setTo(email);
@@ -223,7 +225,7 @@ public class MemberController {
 		helper.setText("인증번호 : " + secret);
 		sender.send(message);
 		
-		return "redirect:check";
+		return new Gson().toJson(result);
 		
 	}
 	
@@ -233,17 +235,41 @@ public class MemberController {
 	 * @param request : IP 주소
 	 */
 	@ResponseBody
-	@PostMapping("check")
-	public String check(String secret, HttpServletRequest request) {
+	@PostMapping(value="selectCode.me", produces="application/json; charset=UTF-8")
+	public String selectEmail(String secret, HttpServletRequest request) {
 		
 		CertVO certVO = CertVO
 				       .builder()
 				       .who(request.getRemoteAddr())
 				       .secret(secret).build();
 		
-		boolean result = memberService.validate(certVO);
+		boolean result = memberService.selectEmail(certVO);
 		
 		return "result : " + result;
+		
+		
+		/*
+		// CertVO cannot be cast to java.lang.Integer 오류
+		int result = memberService.selectEmail(certVO);
+		//int result = Integer.parseInt(String.valueOf(memberService.selectEmail(certVO)));
+		
+		if(result > 0) { // 인증 성공
+			return "Y";
+		} else {
+			return "N";
+		}
+		
+		
+		
+		//return new Gson().toJson(result);
+	
+		
+		//return Integer.toString(memberService.selectEmail(certVO));
+		
+		//return new Gson().toJson(result);
+		*/
+		
+		
 	}
 	
 }

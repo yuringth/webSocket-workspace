@@ -55,14 +55,14 @@ public class MemberServiceImpl implements MemberService {
 
 	// 메일인증 번호 발급
 	@Override
-	public void sendMail(CertVO certVO) {
-		memberDao.insertSecret(sqlSession, certVO);
+	public int insertEmail(CertVO certVO) {
+		return memberDao.insertEmail(sqlSession, certVO);
 	}
 
 	// 메일인증 확인
 	@Override
-	public boolean validate(CertVO certVO) {
-		return memberDao.validate(sqlSession, certVO);
+	public boolean selectEmail(CertVO certVO) {
+		return memberDao.selectEmail(sqlSession, certVO);
 	}
 
 }

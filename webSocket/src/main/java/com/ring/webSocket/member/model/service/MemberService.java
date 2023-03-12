@@ -20,10 +20,10 @@ public interface MemberService {
 	// 아이디 중복체크(select)
 	int idCheck(String checkId);
 	
-	// 메일인증 번호 발급
-	void sendMail(CertVO certVO);
+	// 메일인증 번호 발급(insert)
+	int insertEmail(CertVO certVO);
 
 	// 메일인증 확인
-	boolean validate(CertVO certVO);
+	boolean selectEmail(CertVO certVO);
 	
 }

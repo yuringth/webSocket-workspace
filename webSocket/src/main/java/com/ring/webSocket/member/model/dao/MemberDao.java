@@ -30,20 +30,32 @@ public class MemberDao {
 		return sqlSession.selectOne("memberMapper.idCheck", checkId);
 	}
 
-	public void insertSecret(SqlSessionTemplate sqlSession, CertVO certVO) {
-		sqlSession.insert("memberMapper.insertSecret", certVO);
+	public int insertEmail(SqlSessionTemplate sqlSession, CertVO certVO) {
+		return sqlSession.insert("memberMapper.insertSecret", certVO);
 	}
 
-	public boolean validate(SqlSessionTemplate sqlSession, CertVO certVO) {
+	public boolean selectEmail(SqlSessionTemplate sqlSession, CertVO certVO) {
 		
-		CertVO result = sqlSession.selectOne("memberMapper.validate", certVO);
+		
+		CertVO result = sqlSession.selectOne("memberMapper.selectEmail", certVO);
+		
+		if(result != null) {
+			sqlSession.delete("memberMapper.removeEmail", certVO);
+		}
+		return result != null;
+		
+		/*
+		int result = sqlSession.selectOne("memberMapper.selectEmail", certVO);
 		
 		// 인증완료된 인증번호는 인증 후, 데이터 삭제
-		if(result != null) {
-			sqlSession.delete("memberMapper.remove", certVO);
+	
+	
+		if(result > 0) {
+			sqlSession.delete("memberMapper.removeEmail", certVO);
 		}
 		
-		return result != null; // == true
+		return result;
+		*/
 	}
 	
 }

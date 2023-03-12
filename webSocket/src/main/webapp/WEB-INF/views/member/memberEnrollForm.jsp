@@ -64,17 +64,35 @@
                     <label for="memName">* Name : </label>
                     <input type="text" class="form-control" id="memName" placeholder="Please Enter Name" name="memName" required> <br>
 
-                    <label for="email"> &nbsp; Email : </label>
-                    <input type="text" class="form-control" id="email" placeholder="Please Enter Email" name="email"> <br>
 
-                    <label for="age"> &nbsp; Age : </label>
-                    <input type="number" class="form-control" id="age" placeholder="Please Enter Age" name="age"> <br>
 
-                    <label for="phone"> &nbsp; Phone : </label>
-                    <input type="tel" class="form-control" id="phone" placeholder="Please Enter Phone (-없이)" name="phone"> <br>
+                    <label for="email"> &nbsp;* Email : </label>
                     
-                    <label for="address"> &nbsp; Address : </label>
-                    <input type="text" class="form-control" id="address" placeholder="Please Enter Address" name="address"> <br>
+                    <!-- 메일 인증 -->
+                    <div id="email-Area">
+	                    <input type="text" class="form-control" id="email" placeholder="Please Enter Email" name="email" required> <br>
+						<button type="submit" class="btn btn-primary" onclick="emailCheck();">인증요청</button>
+					</div>
+					
+					<!-- 메일 인증 확인  -->
+					<div id="secret-Area" style="display:none;">
+						<input type="text" class="form-control" id="secret" placeholder="Please Enter Verification Code" name="secret" required> <br>
+						<button type="submit" class="btn btn-primary" onclick="secretCheck();">인증확인</button>
+					</div>
+					
+					<!-- 메일 인증 확인 결과-->
+					<div id="secret-Result" style="font-size:0.7em; display:none;"></div>
+					<br><br>					
+					
+					
+                    <label for="age"> &nbsp;* Age : </label>
+                    <input type="number" class="form-control" id="age" placeholder="Please Enter Age" name="age" required> <br>
+
+                    <label for="phone"> &nbsp;* Phone : </label>
+                    <input type="tel" class="form-control" id="phone" placeholder="Please Enter Phone (-없이)" name="phone" required> <br>
+                    
+                    <label for="address"> &nbsp;* Address : </label>
+                    <input type="text" class="form-control" id="address" placeholder="Please Enter Address" name="address" required> <br>
                     
                     <label for=""> &nbsp; Gender : </label> &nbsp;&nbsp;
                     <input type="radio" id="Male" value="M" name="gender" checked>
@@ -192,6 +210,63 @@
 	        }).open();
     	})
     </script>
+    
+    
+    
+    
+    <!-- 이메일 인증요청 클릭 시 -->
+    <script>
+    	function emailCheck(){
+	    	$.ajax({
+	    		url : 'insertCode.me',
+	    		type : 'post',
+	    		data : {
+	    			email : $('#email').val()
+	    		},
+	    		success : function(result){
+	    			if(result > 0){
+	    				//3분시간제한 넣어야함
+	    				$('#secret-Area').show();
+	    			}
+	    		},
+	    		error : function(){
+					console.log('이메일 인증 ajax통신 실패');
+				}    	
+	    	})
+    	}
+    </script>
+
+
+    <!-- 이메일 인증확인 클릭 시 -->
+    <script>
+    	function secretCheck(){
+    		$.ajax({
+    			url : 'selectCode.me',
+    			type : 'post',
+    			data : {
+    				secret : $('#secret').val()
+    			},
+    			success : function(result){
+    				
+    				if(result == 'Y'){
+    					$('#secret-Result').show();
+    					$('#secret-Result').css('color', 'forestgreen').text('인증되었습니다.');
+    					$('#email').attr('readonly', true);
+    					$('#email-Area').hide();
+    					$('#enroll-form :submit').removeAttr('disabled');
+    				} else{
+    					$('#secret-Result').show();
+    					$('#secret-Result').css('color', 'red').text('인증번호가 일치하지 않습니다.');
+    					$('#enroll-form :submit').attr('disabled', true);
+    				}
+    			},
+    			error : function(){
+					console.log('이메일 인증 ajax통신 실패');
+				}
+    		})
+    	}
+    </script>
+    
     
     
 

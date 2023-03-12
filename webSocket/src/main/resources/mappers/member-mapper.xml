@@ -132,7 +132,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<!-- 메일인증 쿼리문 (조건 3분)-->
-	<select id="validate" resultType="com.ring.webSocket.email.CertVO" parameterType="com.ring.webSocket.email.CertVO">
+	<select id="selectEmail" resultType="com.ring.webSocket.email.CertVO" parameterType="com.ring.webSocket.email.CertVO">
 		SELECT
 		       WHO
 		      ,SECRET
@@ -147,7 +147,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		       WHEN BETWEEN SYSDATE - 3/24/60 AND SYSDATE
 	</select>
 	
-	<delete id="remove" parameterType="com.ring.webSocket.email.CertVO" >
+	<delete id="removeEmail" parameterType="com.ring.webSocket.email.CertVO" >
 		DELETE
 		       CERT
 		 WHERE 	
