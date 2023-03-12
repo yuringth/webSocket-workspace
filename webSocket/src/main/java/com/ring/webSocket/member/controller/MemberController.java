@@ -1,11 +1,17 @@
 package com.ring.webSocket.member.controller;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,6 +28,9 @@ public class MemberController {
 	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	
+	@Autowired
+	private JavaMailSender sender; // 메일 전송도구
 	
 	
 	// 로그인
@@ -160,6 +169,20 @@ public class MemberController {
 		}
 	}
 	
+	
+	
+	@GetMapping("input")
+	public String input() {
+		return "member/input";
+	}
+	
+	@GetMapping("check")
+	public String check() {
+		return "member/check";
+	}
+	
+	
+
 	
 	
 	
