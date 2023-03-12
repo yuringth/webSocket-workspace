@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 
 @Data @Builder @AllArgsConstructor
-public class CertVO {
+public class Cert {
 	
 	private String who;
 	private String secret;

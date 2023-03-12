@@ -4,7 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.ring.webSocket.email.CertVO;
+import com.ring.webSocket.email.Cert;
 import com.ring.webSocket.member.model.vo.Member;
 
 @Repository
@@ -30,11 +30,11 @@ public class MemberDao {
 		return sqlSession.selectOne("memberMapper.idCheck", checkId);
 	}
 
-	public int insertEmail(SqlSessionTemplate sqlSession, CertVO certVO) {
+	public int insertEmail(SqlSessionTemplate sqlSession, Cert certVO) {
 		return sqlSession.insert("memberMapper.insertSecret", certVO);
 	}
 
-	public int selectEmail(SqlSessionTemplate sqlSession, CertVO certVO) {
+	public int selectEmail(SqlSessionTemplate sqlSession, Cert certVO) {
 		
 		int result = sqlSession.selectOne("memberMapper.selectEmail", certVO);
 		

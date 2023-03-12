@@ -16,13 +16,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
-import com.ring.webSocket.email.CertVO;
+import com.ring.webSocket.email.Cert;
 import com.ring.webSocket.member.model.service.MemberService;
 import com.ring.webSocket.member.model.vo.Member;
 
@@ -177,25 +176,10 @@ public class MemberController {
 	}
 	
 	
-	/*
-	@GetMapping("input")
-	public String input() {
-		return "member/input";
-	}
-	
-	@GetMapping("check")
-	public String check() {
-		return "member/check";
-	}
-	*/
-	
-	
 	/**
 	 * @param email : 입력한 이메일 주소
 	 * @param request : IP주소
 	 */
-	
-	
 	@ResponseBody
 	@PostMapping(value="insertCode.me", produces="application/json; charset=UTF-8")
 	public String insertEmail(String email, HttpServletRequest request) throws MessagingException {
@@ -215,15 +199,13 @@ public class MemberController {
 		String secret = f.format(n);
 		
 		// VO객체에 담기
-		CertVO certVO = CertVO
+		Cert certVO = Cert
 				        .builder()
 				        .who(ip)
 				        .secret(secret)
 				        .build();
 		
 		int result = memberService.insertEmail(certVO);
-		
-		System.out.println(result); // insert 성공 시 1
 		
 		// 사용자에게 인증 메일 전송
 		helper.setTo(email);
@@ -241,57 +223,13 @@ public class MemberController {
 	 * @param secret : 발급받은 인증번호
 	 * @param request : IP 주소
 	 */
-	/*
-	@ResponseBody
-	@PostMapping(value="selectCode.me", produces="application/json; charset=UTF-8")
-	public String selectEmail(String secret, HttpServletRequest request) {
-		
-		CertVO certVO = CertVO
-				       .builder()
-				       .who(request.getRemoteAddr())
-				       .secret(secret).build();
-		
-		boolean result = memberService.selectEmail(certVO);
-		
-		if(result == true) {
-			return "result : " + result;
-		} else{
-			return "result : " + result;
-		}
-		
-		
-		////////////////
-		// CertVO cannot be cast to java.lang.Integer 오류
-		int result = memberService.selectEmail(certVO);
-		//int result = Integer.parseInt(String.valueOf(memberService.selectEmail(certVO)));
-		
-		if(result > 0) { // 인증 성공
-			return "Y";
-		} else {
-			return "N";
-		}
-		
-		
-		
-		//return new Gson().toJson(result);
-	
-		
-		//return Integer.toString(memberService.selectEmail(certVO));
-		
-		//return new Gson().toJson(result);
-		
-	}
-    
-*/
-	
-	
 	@ResponseBody
 	@PostMapping(value="selectCode.me", produces="text/html; charset=UTF-8")
 	public String selectEmail(String secret, HttpServletRequest request) {
 		
 		System.out.println("컨트롤러변수: "+ secret);
 		
-		CertVO certVO = CertVO
+		Cert certVO = Cert
 				       .builder()
 				       .who(request.getRemoteAddr())
 				       .secret(secret).build();
@@ -304,31 +242,6 @@ public class MemberController {
 	}
 	 
 
-	/*
-	@ResponseBody
-	@PostMapping(value="selectCode.me", produces="text/html; charset=UTF-8")
-	public String selectEmail(@RequestBody String secret, HttpServletRequest request) {
-		
-		System.out.println("컨트롤러변수: "+ secret);
-		
-		CertVO certVO = CertVO
-				       .builder()
-				       .who(request.getRemoteAddr())
-				       .secret(secret).build();
-		
-		System.out.println("컨트롤러" + certVO); // CertVO(who=0:0:0:0:0:0:0:1, secret=123546, when=null)
-		
-		if(memberService.selectEmail(certVO) > 0) {
-			return "success";
-		} else {
-			return "fail";
-		}
-		
-	}
-	
-	*/
-	 
-	
 	
 	
 }

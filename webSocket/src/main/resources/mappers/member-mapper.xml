@@ -113,7 +113,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<!-- 메일인증 쿼리문 -->
-	<insert id="insertSecret" parameterType="com.ring.webSocket.email.CertVO">
+	<insert id="insertSecret" parameterType="com.ring.webSocket.email.Cert">
 		INSERT 
 		  INTO 
 		      CERT
@@ -131,8 +131,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	
-	<!-- 메일인증 쿼리문 (조건 3분)-->
-	<select id="selectEmail" resultType="_int" parameterType="com.ring.webSocket.email.CertVO">
+	<!-- 메일인증 쿼리문 -->
+	<select id="selectEmail" resultType="_int" parameterType="cert">
 		SELECT
 		       COUNT(*)
 		  FROM
@@ -146,7 +146,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	
-	<delete id="removeEmail" parameterType="com.ring.webSocket.email.CertVO" >
+	<delete id="removeEmail" parameterType="cert" >
 		DELETE
 		       CERT
 		 WHERE 	

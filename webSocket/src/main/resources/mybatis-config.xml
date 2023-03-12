@@ -14,6 +14,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<typeAliases>
 		<typeAlias type="com.ring.webSocket.member.model.vo.Member" alias="member"/>
 		<typeAlias type="com.ring.webSocket.board.model.vo.Board"   alias="board"/>
+		<typeAlias type="com.ring.webSocket.email.Cert"   alias="cert"/>
 	</typeAliases>
 	
 	<!-- 
