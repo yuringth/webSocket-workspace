@@ -38,13 +38,10 @@ public class MemberDao {
 		
 		int result = sqlSession.selectOne("memberMapper.selectEmail", certVO);
 		
-		System.out.println("딜리트 전 dao : " + result); // null 이뜬다,,,? 0이나 1이 떠야하는데
-		
 		if(result > 0) { // 발급받은 인증키가 있음 => 인증완료 후 데이터 삭제
 			sqlSession.delete("memberMapper.removeEmail", certVO);
 		}
 		
-		System.out.println("딜리스 후 dao : " + result);
 		return result; // result(certVO), true	
 		
 		

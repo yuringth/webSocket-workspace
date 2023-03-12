@@ -296,14 +296,11 @@ public class MemberController {
 				       .who(request.getRemoteAddr())
 				       .secret(secret).build();
 		
-		System.out.println("컨트롤러 결과 : " + memberService.selectEmail(certVO));
-		
 		if(memberService.selectEmail(certVO) > 0) {
 			return "success";
 		} else {
 			return "fail";
 		}
-		
 	}
 	 
 
