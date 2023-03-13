@@ -16,8 +16,8 @@ public class run {
 		// - 계정 설정
 		impl.setHost("smtp.gmail.com"); // 구글 사용(고정)
 		impl.setPort(587); // 구글 포트 번호(고정)
-		impl.setUsername("testemaildayo"); // 아이디
-		impl.setPassword("gtcktgxlxpckyunl"); // 패스워드
+		impl.setUsername("testemaildayo2"); // 아이디
+		impl.setPassword("xsmrvbmkemfslghr"); // 패스워드
 		
 		// - 옵션 설정
 		Properties prop = new Properties(); 
@@ -34,9 +34,9 @@ public class run {
 		
 		// 메시지 정보 설정 : 제목, 내용, 받는사람, 참조, 숨은참조 (첨부파일은 simple에선 불가)
 		message.setSubject("테스트메일");
-		message.setText("테스트메일의 본문 내용입니다.");
+		message.setText("테스트메일의 본문 내용입니다.하이하이");
 
-		String[] to = {"testemaildayo@gmail.com", "dldlwlrma@gmail.com"}; // 받는사람 배열로 생성 후 message객체에 대입
+		String[] to = {"testemaildayo2@gmail.com", "dldlwlrma@gmail.com"}; // 받는사람 배열로 생성 후 message객체에 대입
 		message.setTo(to);
 		
 		message.setCc("dldlwlrma@gmail.com"); // 참조
