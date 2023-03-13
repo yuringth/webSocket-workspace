@@ -51,23 +51,22 @@
 
 1. 아이디 입력 - 유효성 검사, 중복 검사
 2. 비밀번호 입력/재입력 - 유효성 검사, 일치 검사
+<br><br>
 
 
-
-<b>이메일 입력 및 인증</b>
-<img src="../main/webapp/resources/images/이메일인증.gif" alt="이메일인증" />
+![이메일인증](https://user-images.githubusercontent.com/121650385/224619292-bb01b837-cd74-4905-bc17-2c6930813bf1.gif)
 <br>
+<b>이메일 입력 및 인증</b>
 1. 이메일 입력 / 인증 - 유효성 및 인증번호 확인
 2. 모든 항목 작성 시 회원가입 버튼 활성화
-</div>
+<br><br>
 
 
 ![로그인](https://user-images.githubusercontent.com/121650385/224617727-a3270aa5-0734-442a-8f3a-004a7e066660.gif)
 <br>
 <b>웹사이트 로그인</b>
 1. 일치하는 아이디&비밀번호 입력 시 로그인
-
-
+<br><br>
 
 
 ![주소api](https://user-images.githubusercontent.com/121650385/224617782-a6b913a9-ee9d-4aeb-a8f0-0244000bbb1a.gif)
@@ -76,9 +75,7 @@
 (API양식이 녹화에 안찍힙니다..)
 1. 주소 칸에 커서 클릭 시 카카오 우편번호로 주소찾기 양식 보여줌
 2. 클릭하면 주소 입력됨
-
-
-<br>
+<br><br>
 
 
 ## :pencil2: 4) 참고 사이트
