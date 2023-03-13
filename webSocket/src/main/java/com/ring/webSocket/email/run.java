@@ -16,8 +16,8 @@ public class run {
 		// - 계정 설정
 		impl.setHost("smtp.gmail.com"); // 구글 사용(고정)
 		impl.setPort(587); // 구글 포트 번호(고정)
-		impl.setUsername("gozldshsh55"); // 아이디
-		impl.setPassword("yjcfwzysguwbmexr"); // 패스워드
+		impl.setUsername("dlapdlftkfkwla"); // 아이디
+		impl.setPassword("yegweklogudgwexr"); // 패스워드
 		
 		// - 옵션 설정
 		Properties prop = new Properties(); 

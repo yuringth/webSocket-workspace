@@ -73,30 +73,22 @@ public class MemberController {
 	
 	
 	/**
-	 * @param m : 내가 입력한 회원정보
+	 * @param m : 내가 입력한 회원정보 / m.getMemPwd() : 내가 입력한 평문
 	 */
 	// 회원가입
 	@RequestMapping("insert.me")
 	public String insertMember(Member m, Model model, HttpSession session) {
-		
-		// System.out.println("평문 : " + m.getMemPwd());
-		
 		// 암호문을 만들어내는 작업
 		String encPwd = bcryptPasswordEncoder.encode(m.getMemPwd());
-		// System.out.println("암호문 : " + encPwd);
-		
 		m.setMemPwd(encPwd); // 평문이 아닌 암호문으로 세팅
-		
 		int result = memberService.insertMember(m);
-		
-		if(result>0) {
+		if(result > 0) {
 			session.setAttribute("alertMsg", "회원 가입 축하드립니다~!");
 			return "redirect:/";
 		} else {
 			model.addAttribute("errorMsg", "회원가입 실패하셨습니다");
 			return "common/errorPage";
 		}
-		
 	}
 	
 	
@@ -185,6 +177,7 @@ public class MemberController {
 	@PostMapping(value="insertCode.me", produces="application/json; charset=UTF-8")
 	public String insertEmail(String email, HttpServletRequest request) {
 		
+		// 전송할 이메일이 단순 텍스트일때 이용하는 클래스 
 		SimpleMailMessage message = new SimpleMailMessage();
 
 		// IP주소 생성
