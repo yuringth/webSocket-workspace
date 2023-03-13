@@ -45,21 +45,21 @@
 
 ## 🤔 3) 주요기능
 <b>아이디&비밀번호 유효성 검사</b> 
-<div><img src="../../resources/images/유효성검사.gif" alt="유효성검사" /></div>
+<div>![유효성검사](https://user-images.githubusercontent.com/121650385/224617245-d38326d9-56b0-4e79-bed4-ad6adb25abf9.gif)</div>
 1. 아이디 입력 - 유효성 검사, 중복 검사
 2. 비밀번호 입력/재입력 - 유효성 검사, 일치 검사
 
 <b>이메일 입력 및 인증</b>
-<div><img src="../../resources/images/이메일인증.gif" alt="이메일인증" /></div>
+<div><img src="../main/webapp/resources/images/이메일인증.gif" alt="이메일인증" /></div>
 1. 이메일 입력 / 인증 - 유효성 및 인증번호 확인
 2. 모든 항목 작성 시 회원가입 버튼 활성화
 
 <b>웹사이트 로그인</b>
-<div><img src="../../resources/images/로그인.gif" alt="로그인" /></div>
+<div>![로그인](https://user-images.githubusercontent.com/121650385/224617315-d8456a48-8b47-4084-bf27-5ce0f5c6fde1.gif)</div>
 1. 일치하는 아이디&비밀번호 입력 시 로그인
 
 <b>주소 API</b>
-<div><img src="../../resources/images/주소api.gif" alt="주소api" /></div>
+<div>![주소api](https://user-images.githubusercontent.com/121650385/224617301-6222525a-604e-4e3b-9d4c-90697d2e58b8.gif)</div>
 1. 주소 칸에 커서 클릭 시 카카오 우편번호로 주소찾기 양식 보여줌
 2. 클릭하면 주소 입력됨
 
