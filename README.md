@@ -61,14 +61,6 @@
 <br><br>
 
 
-![로그인](https://user-images.githubusercontent.com/121650385/224617727-a3270aa5-0734-442a-8f3a-004a7e066660.gif)
-<br>
-<b>웹사이트 로그인</b>
-1. 일치하는 아이디&비밀번호 입력 시 로그인
-2. 모든 항목 작성 시 회원가입 버튼 활성화
-<br><br>
-
-
 ![주소api](https://user-images.githubusercontent.com/121650385/224617782-a6b913a9-ee9d-4aeb-a8f0-0244000bbb1a.gif)
 <br>
 <b>주소 API</b>
@@ -76,6 +68,15 @@
 1. 주소 칸에 커서 클릭 시 카카오 우편번호로 주소찾기 양식 보여줌
 2. 클릭하면 주소 입력됨
 <br><br>
+
+
+![로그인](https://user-images.githubusercontent.com/121650385/224617727-a3270aa5-0734-442a-8f3a-004a7e066660.gif)
+<br>
+<b>웹사이트 로그인</b>
+1. 일치하는 아이디&비밀번호 입력 시 로그인
+2. 모든 항목 작성 시 회원가입 버튼 활성화
+<br><br>
+
 
 
 ## :pencil2: 4) 참고 사이트
