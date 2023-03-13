@@ -115,14 +115,9 @@
     
     <script>
     	// id 중복 체크용 스크립트
-    	
     	$(function(){
-    		// 내가 입력한 id값
-    		const $idInput = $('.form-group #memId');
-    		
+    		const $idInput = $('.form-group #memId'); // 내가 입력한 id값
     		$idInput.keyup(function(){
-    			// console.log($idInput.val());
-    			
     			// 최소 다섯글자 이상으로 입력할 때만 ajax요청해서 중복체크(입력한 값이 다섯글자 이상인지)
     			if($idInput.val().length >= 5){
     				
@@ -163,7 +158,7 @@
     	$('input[name=memPwd]').focusout(function(){
     		
     		var regExp = /^[a-zA-Z\d~!@#]{8,15}$/;
-			var $memPwd = $('#memPwd').val();
+			var $memPwd = $('#memPwd').val(); // 입력 pwd 값
 			
 			if(regExp.test($('#memPwd').val())){
 				$('#regExp-Result').show();
@@ -180,10 +175,9 @@
     
     <script>
     	// 비밀번호 일치 검사 스크립트
-    	
     	$('input[name=checkPwd]').focusout(function(){
-    		var $memPwd = $('#memPwd').val();
-    		var $checkPwd = $('#checkPwd').val();
+    		var $memPwd = $('#memPwd').val(); // 입력 pwd값
+    		var $checkPwd = $('#checkPwd').val(); // 재확인 pwd값
     	
    			if($memPwd == $checkPwd){
    				$('#checkPwd-Result').show();
@@ -200,7 +194,6 @@
 	<!-- 주소란 클릭 시, 우편번호 API 나타나는 스크립트  -->
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
-    
     	$('#address').click(function(){
     		
     		new daum.Postcode({
@@ -221,7 +214,7 @@
 	    		url : 'insertCode.me',
 	    		type : 'post',
 	    		data : {
-	    			email : $('#email').val()
+	    			email : $('#email').val() // email입력 값
 	    		},
 	    		success : function(result){
 	    			if(result > 0){

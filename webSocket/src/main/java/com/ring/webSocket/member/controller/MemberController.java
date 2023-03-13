@@ -5,13 +5,12 @@ import java.text.Format;
 import java.util.Random;
 
 import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,8 +31,9 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	// BCryptPasswordEncoder: Spring Security 프레임워크에서 제공하는 클래스로 비밀번호를 함호화하는데 사용
 	@Autowired
-	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	private BCryptPasswordEncoder bcryptPasswordEncoder; 
 	
 	@Autowired
 	private JavaMailSender sender; // 메일 전송도구
@@ -74,7 +74,6 @@ public class MemberController {
 	
 	/**
 	 * @param m : 내가 입력한 회원정보
-	 * @return
 	 */
 	// 회원가입
 	@RequestMapping("insert.me")
@@ -134,7 +133,6 @@ public class MemberController {
 	/**
 	 * @param memPwd : 회원 탈퇴 요청 시 사용자가 입력한 비밀번호 평문
 	 * @param session : 로그인 되어있는 loginUser Member객체에서 userPwd를 뽑음 => DB에 기록된 암호화된 비밀번호
-	 * @return
 	 */
 	@RequestMapping("delete.me")
 	public String deleteMember(String memId, String memPwd, HttpSession session) {
@@ -168,7 +166,6 @@ public class MemberController {
 		
 		int count = memberService.idCheck(checkId);
 		
-		// 네이버 방식 참고 NNNNY : 사용가능 / NNNNN : 사용불가능
 		if(count > 0) { // 이미 존재하는 아이디  (NNNNN : 사용불가능)
 			return "NNNNN";
 		} else { // 사용 가능 아이디 (NNNNY : 사용가능)
@@ -177,19 +174,19 @@ public class MemberController {
 	}
 	
 	
+	// JavaMailSender을 이용하여 이메일 전송 + 인증을 위한 CERT테이블에 insert
+	// SimpleMailMessage : 전송할 이메일이 단순 텍스트일때 이용하는 클래스 
 	/**
 	 * @param email : 입력한 이메일 주소
 	 * @param request : IP주소
 	 */
+	// 이메일 전송하는 메소드
 	@ResponseBody
 	@PostMapping(value="insertCode.me", produces="application/json; charset=UTF-8")
-	public String insertEmail(String email, HttpServletRequest request) throws MessagingException {
+	public String insertEmail(String email, HttpServletRequest request) {
 		
-		
-		MimeMessage message = sender.createMimeMessage();
-		MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-		
-		
+		SimpleMailMessage message = new SimpleMailMessage();
+
 		// IP주소 생성
 		String ip = request.getRemoteAddr(); 
 		
@@ -198,25 +195,19 @@ public class MemberController {
 		int n = r.nextInt(100000);
 		Format f = new DecimalFormat("000000");
 		String secret = f.format(n);
-		
+				
 		// VO객체에 담기
-		Cert certVO = Cert
-				        .builder()
-				        .who(ip)
-				        .secret(secret)
-				        .build();
+		Cert certVO = Cert.builder().who(ip).secret(secret).build();
 		
 		int result = memberService.insertEmail(certVO);
 		
-		
 		// 사용자에게 인증 메일 전송
-		helper.setTo(email);
-		helper.setSubject("인증번호입니다.");
-		helper.setText("인증번호 : " + secret);
+		message.setTo(email);
+		message.setSubject("인증번호입니다.");
+		message.setText("인증번호 : " + secret);
 		sender.send(message);
 		
 		return new Gson().toJson(result);
-		
 	}
 	
 	
@@ -225,16 +216,12 @@ public class MemberController {
 	 * @param secret : 발급받은 인증번호
 	 * @param request : IP 주소
 	 */
+	// 이메일 인증 확인 메소드
 	@ResponseBody
 	@PostMapping(value="selectCode.me", produces="text/html; charset=UTF-8")
 	public String selectEmail(String secret, HttpServletRequest request) {
 		
-		System.out.println("컨트롤러변수: "+ secret);
-		
-		Cert certVO = Cert
-				       .builder()
-				       .who(request.getRemoteAddr())
-				       .secret(secret).build();
+		Cert certVO = Cert.builder().who(request.getRemoteAddr()).secret(secret).build();
 		
 		if(memberService.selectEmail(certVO) > 0) {
 			return "success";

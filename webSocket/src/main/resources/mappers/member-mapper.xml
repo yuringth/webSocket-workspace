@@ -113,7 +113,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<!-- 메일인증 쿼리문 -->
-	<insert id="insertSecret" parameterType="com.ring.webSocket.email.Cert">
+	<insert id="insertSecret" parameterType="cert">
 		INSERT 
 		  INTO 
 		      CERT
