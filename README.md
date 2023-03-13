@@ -44,7 +44,7 @@
 <br>
 
 
-## 📌 3) 주요기능
+## 📌 3) 주요기능(GIF有)
 
 ![유효성검사](https://user-images.githubusercontent.com/121650385/224617741-aeea9a84-fa4d-42db-8001-b7d9e786793e.gif)
 <br>
